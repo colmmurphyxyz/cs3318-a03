@@ -66,7 +66,7 @@ class ColourTableTest {
     @Test
     public void testRejectDuplicates() {
         ct.add(1, 1, 1);
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(DuplicateColorException.class, () ->
                 ct.add(1, 1, 1),
                 "Duplicate colours are not allowed in the colour palette"
         );
