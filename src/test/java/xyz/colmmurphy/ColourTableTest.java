@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,9 +39,17 @@ class ColourTableTest {
 
     @Test
     public void testAdd() {
-        assertDoesNotThrow(() -> {ct.add(1, 2, 3);} );
+        int beforeSize = ct.getPalette().size();
+        int[] rgb = new int[] {1, 2, 3};
+        assertDoesNotThrow(() -> {ct.add(rgb);} );
+        assertEquals(beforeSize + 1, ct.getPalette().size());
+        assertArrayEquals(ct.getPalette().get(beforeSize), rgb);
+    }
+
+    @Test
+    public void testAddToFullPalette() {
         assertThrows(ColourTableCapacityExceededException.class, () ->
-                fullColourTable.add(1, 2, 3),
+                        fullColourTable.add(1, 2, 3),
                 "Cannot add colour to full colour palette"
         );
     }
