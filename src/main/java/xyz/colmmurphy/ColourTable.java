@@ -34,5 +34,6 @@ public class ColourTable {
 
     public void add(byte red, byte green, byte blue) {
         add(new byte[] {red, green, blue});
+        char x = 255;
     }
 }
