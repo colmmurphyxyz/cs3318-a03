@@ -40,7 +40,7 @@ class ColourTableTest {
     public void testAdd() {
         int beforeSize = ct.getPalette().size();
         int[] rgb = new int[] {1, 2, 3};
-        assertDoesNotThrow(() -> {ct.add(rgb);} );
+        assertDoesNotThrow(() -> ct.add(rgb) );
         assertEquals(beforeSize + 1, ct.getPalette().size());
         assertArrayEquals(ct.getPalette().get(beforeSize), rgb);
     }

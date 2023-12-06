@@ -29,7 +29,7 @@ public class ColourTable {
         } else {
             this.numColours = numColours;
         }
-        this.palette = new ArrayList<int[]>(numColours);
+        this.palette = new ArrayList<>(numColours);
     }
 
     /**
