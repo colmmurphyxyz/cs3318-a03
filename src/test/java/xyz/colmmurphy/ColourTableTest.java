@@ -33,9 +33,9 @@ class ColourTableTest {
 
     @Test
     public void testAdd() {
-        assertDoesNotThrow(() -> {ct.add((byte) 1, (byte) 2, (byte) 3);} );
+        assertDoesNotThrow(() -> {ct.add(1, 2, 3);} );
         assertThrows(ColourTableCapacityExceededException.class, () ->
-                fullColourTable.add((byte) 1, (byte) 2, (byte) 3),
+                fullColourTable.add(1, 2, 3),
                 "Cannot add colour to full colour palette"
         );
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ColourTable {
 
     private final int numColours;
-    private ArrayList<byte[]> palette;
+    private ArrayList<int[]> palette;
 
     public ColourTable(int numColours) {
         if (numColours <= 1 || numColours > 1024 || !isPowerOf2(numColours)) {
@@ -13,7 +13,7 @@ public class ColourTable {
         } else {
             this.numColours = numColours;
         }
-        this.palette = new ArrayList<byte[]>(numColours);
+        this.palette = new ArrayList<int[]>(numColours);
     }
 
     private boolean isPowerOf2(int x) {
@@ -28,12 +28,12 @@ public class ColourTable {
         return this.numColours;
     }
 
-    public void add(byte[] rgb) {
+    public void add(int[] rgb) {
         this.palette.add(rgb);
     }
 
-    public void add(byte red, byte green, byte blue) {
-        add(new byte[] {red, green, blue});
+    public void add(int red, int green, int blue) {
+        add(new int[] {red, green, blue});
         char x = 255;
     }
 }
