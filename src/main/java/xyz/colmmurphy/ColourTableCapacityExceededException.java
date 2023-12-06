@@ -1,6 +1,6 @@
 package xyz.colmmurphy;
 
-public class ColourTableCapacityExceededException extends Exception {
+public class ColourTableCapacityExceededException extends RuntimeException {
     String message;
     public ColourTableCapacityExceededException() {
         super();

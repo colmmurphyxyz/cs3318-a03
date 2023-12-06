@@ -1,6 +1,6 @@
 package xyz.colmmurphy;
 
-public class DuplicateColorException extends Exception {
+public class DuplicateColorException extends RuntimeException {
     String message;
     public DuplicateColorException() {
         super();
