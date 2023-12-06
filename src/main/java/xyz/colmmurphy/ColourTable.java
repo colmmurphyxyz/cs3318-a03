@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public class ColourTable {
 
-    private int numColours;
+    private final int numColours;
     private ArrayList<byte[]> palette;
 
     public ColourTable(int numColours) {
-        this.setNumColours(numColours);
+        if (numColours <= 1 || numColours > 1024 || !isPowerOf2(numColours)) {
+            throw new IllegalArgumentException("numColours must be a power of 2 greater than 1");
+        } else {
+            this.numColours = numColours;
+        }
         this.palette = new ArrayList<byte[]>(numColours);
     }
 
@@ -22,12 +26,6 @@ public class ColourTable {
     }
     public int getNumColours() {
         return this.numColours;
-    }
-
-    public void setNumColours(int numColours) {
-        if (numColours <= 1 || numColours > 1024 || !isPowerOf2(numColours)) {
-            throw new IllegalArgumentException("numColours must be a power of 2 greater than 1");
-        }
     }
 
     public void add(byte[] rgb) {
