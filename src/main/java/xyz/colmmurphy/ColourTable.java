@@ -17,6 +17,11 @@ public class ColourTable {
         this.palette = new ArrayList<int[]>(numColours);
     }
 
+    /**
+     *
+     * @param x positive integer
+     * @return true, if x is a power of 2 (i.e. log_2(x) is an integer)
+     */
     private boolean isPowerOf2(int x) {
         int count = 0;
         while (x > 0) {
@@ -25,10 +30,22 @@ public class ColourTable {
         }
         return count == 1;
     }
+
+    /**
+     * Getter for the maximum capacity of the colour palette
+     * @return maximum number of colours supported by the colour palette
+     */
     public int getNumColours() {
         return this.numColours;
     }
 
+    /**
+     * Adds an rgb value to the colour palette
+     * @param rgb int array of size 3, containing the red, green, and blue values respectively
+     * @throws ColourTableCapacityExceededException if the colour palette is full
+     * @throws IllegalArgumentException if the rgb colour provided is invalid (e.g. values are < 0 or > 255)
+     * @throws DuplicateColorException if the given colour already exists in the palette
+     */
     public void add(int[] rgb) {
         if (this.palette.size() == this.numColours) {
             throw new ColourTableCapacityExceededException();
@@ -48,6 +65,10 @@ public class ColourTable {
         this.add(new int[] {red, green, blue});
     }
 
+    /**
+     * Overloaded method of ColourTable.add(int[])
+     * @param hexCode rgb colout value, represented in hex code format. Does not need to include a leading #
+     */
     public void add(String hexCode) {
         if (!hexCode.matches("^#?[a-f0-9A-F]{6}$")) {
             throw new IllegalArgumentException("not a valid Hex Code");
@@ -59,10 +80,19 @@ public class ColourTable {
         this.add(red, green, blue);
     }
 
+    /**
+     * get the colour at the given index of the colour palette
+     * @param index index of the colour palette array
+     * @return int array of the rgb value at the given index, or null if no colour exists at that index
+     */
     public int[] get(int index) {
         return this.palette.get(index);
     }
 
+    /**
+     * Getter for the private palette field
+     * @return colour palette
+     */
     public ArrayList<int[]> getPalette() {
         return this.palette;
     }
