@@ -71,4 +71,34 @@ class ColourTableTest {
                 "Duplicate colours are not allowed in the colour palette"
         );
     }
+
+    private static Stream<Arguments> hexCodeValueProvider() {
+        return Stream.of(
+                Arguments.of("#aa11ff", 170, 17, 255),
+                Arguments.of("#AABBFF", 170, 187, 255),
+                Arguments.of("123456", 18, 52, 86)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("hexCodeValueProvider")
+    public void testAddHexCode(String hexCode, int red, int green, int blue) {
+        ct.add(red, green, blue);
+        assertThrows(DuplicateColorException.class, () -> ct.add(hexCode));
+    }
+
+    private static Stream<Arguments> invalidHexCodeProvider() {
+        return Stream.of(
+                Arguments.of("abcdefg"),
+                Arguments.of("#1111111111111111111111111111111111"),
+                Arguments.of("Hello World!"),
+                Arguments.of("")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidHexCodeProvider")
+    public void testAddInvalidHexCode(String hexCode) {
+        assertThrows(IllegalArgumentException.class, () -> ct.add(hexCode));
+    }
 }
