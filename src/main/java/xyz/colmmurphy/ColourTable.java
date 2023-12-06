@@ -62,4 +62,8 @@ public class ColourTable {
     public int[] get(int index) {
         return this.palette.get(index);
     }
+
+    public ArrayList<int[]> getPalette() {
+        return this.palette;
+    }
 }
