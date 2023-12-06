@@ -1,10 +1,15 @@
 package xyz.colmmurphy;
 
+import java.util.ArrayList;
+
 public class ColourTable {
 
     private int numColours;
+    private ArrayList<byte[]> palette;
+
     public ColourTable(int numColours) {
         this.setNumColours(numColours);
+        this.palette = new ArrayList<byte[]>(numColours);
     }
 
     private boolean isPowerOf2(int x) {
@@ -20,8 +25,16 @@ public class ColourTable {
     }
 
     public void setNumColours(int numColours) {
-        if (numColours <= 1 || !isPowerOf2(numColours)) {
+        if (numColours <= 1 || numColours > 1024 || !isPowerOf2(numColours)) {
             throw new IllegalArgumentException("numColours must be a power of 2 greater than 1");
         }
+    }
+
+    public void add(byte[] rgb) {
+        this.palette.add(rgb);
+    }
+
+    public void add(byte red, byte green, byte blue) {
+        add(new byte[] {red, green, blue});
     }
 }
