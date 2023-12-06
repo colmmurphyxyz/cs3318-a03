@@ -2,6 +2,11 @@ package xyz.colmmurphy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,6 +42,33 @@ class ColourTableTest {
         assertThrows(ColourTableCapacityExceededException.class, () ->
                 fullColourTable.add(1, 2, 3),
                 "Cannot add colour to full colour palette"
+        );
+    }
+
+    private static Stream<Arguments> invalidRGBValuesProvider() {
+        return Stream.of(
+                Arguments.of(-100, 0, 0),
+                Arguments.of(10, 500, 9),
+                Arguments.of(10, 50, 256),
+                Arguments.of(300, 400, Integer.MAX_VALUE)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidRGBValuesProvider")
+    public void testRejectInvalidRGBValues(int red, int green, int blue) {
+        assertThrows(IllegalArgumentException.class, () ->
+                        ct.add(red, green, blue),
+                "Invalid RGB value added to colour palette"
+        );
+    }
+
+    @Test
+    public void testRejectDuplicates() {
+        ct.add(1, 1, 1);
+        assertThrows(IllegalArgumentException.class, () ->
+                ct.add(1, 1, 1),
+                "Duplicate colours are not allowed in the colour palette"
         );
     }
 }
