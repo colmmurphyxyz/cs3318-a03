@@ -109,4 +109,12 @@ class ColourTableTest {
     public void testAddInvalidHexCode(String hexCode) {
         assertThrows(IllegalArgumentException.class, () -> ct.add(hexCode));
     }
+
+    @Test
+    public void testGetInvalidIndex() {
+        ct.add(255, 255, 0);
+        ct.add(255, 255, 255);
+        ct.add(255, 0, 255);
+        assertThrows(IndexOutOfBoundsException.class, () -> ct.get(5));
+    }
 }
